@@ -8,28 +8,14 @@ using System.Threading.Tasks;
 namespace MJU23v_D10_inl_sveng {
     internal class Commands {
         public static void LoadCommand(string[] args) {
-            // TODO: Innehållet av båda if:arna kan kombineras.
-            if (args.Length == 2) {
-                // TODO: Try/catch.
-                using (StreamReader sr = new StreamReader(@"dict\" + args[1])) {
-                    Program.Dictionary = new List<SweEngGloss>(); // Empty it!
-                    string line = sr.ReadLine();
-                    while (line != null) {
-                        SweEngGloss gloss = new SweEngGloss(line);
-                        Program.Dictionary.Add(gloss);
-                        line = sr.ReadLine();
-                    }
-                }
-            } else if (args.Length == 1) {
-                // TODO: Try/catch.
-                using (StreamReader sr = new StreamReader(Program.DefaultFile)) {
-                    Program.Dictionary = new List<SweEngGloss>(); // Empty it!
-                    string line = sr.ReadLine();
-                    while (line != null) {
-                        SweEngGloss gloss = new SweEngGloss(line);
-                        Program.Dictionary.Add(gloss);
-                        line = sr.ReadLine();
-                    }
+            string file = Program.DefaultFile;
+            if (args.Length > 1) file = @"dict\" + args[1];
+            using (StreamReader sr = new StreamReader(file)) {
+                Program.Dictionary = new List<SweEngGloss>(); // Empty it!
+                string line;
+                while((line = sr.ReadLine()) != null) {
+                    SweEngGloss gloss = new SweEngGloss(line);
+                    Program.Dictionary.Add(gloss);
                 }
             }
         }
