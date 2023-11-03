@@ -41,28 +41,25 @@ namespace MJU23v_D10_inl_sveng {
         }
 
         public static void DeleteCommand(string[] args) {
-            if (args.Length == 3) {
-                int index = -1;
-                for (int i = 0; i < Program.Dictionary.Count; i++) { // TODO: Förkorta.
-                    SweEngGloss gloss = Program.Dictionary[i];
-                    if (gloss.word_swe == args[1] && gloss.word_eng == args[2])
-                        index = i;
-                }
-                Program.Dictionary.RemoveAt(index);
-            } else if (args.Length == 1) {
-                // TODO: Kolla om listan är tom.
-                Console.WriteLine("Write word in Swedish: ");
-                string s = Console.ReadLine();
+            if(Program.Dictionary.Count == 0) { Console.WriteLine("Dictionary list is empty."); return; }
+            if (args.Length == 2) { Console.WriteLine("'delete' does not take two arguments. Correct usage: delete, delete [swedish word] [english word]"); return; }
+
+            string word_swe, word_eng;
+            if(args.Length > 2) {
+                word_swe = args[1]; word_eng = args[2];
+            } else {
+                Console.Write("Write word in Swedish: ");
+                word_swe = Console.ReadLine();
                 Console.Write("Write word in English: ");
-                string e = Console.ReadLine();
-                int index = -1;
-                for (int i = 0; i < Program.Dictionary.Count; i++) // TODO: Förkorta.
-                {
-                    SweEngGloss gloss = Program.Dictionary[i];
-                    if (gloss.word_swe == s && gloss.word_eng == e)
-                        index = i;
+                word_eng = Console.ReadLine();
+            }
+            SweEngGloss[] glossaries = Program.Dictionary.Where(g => g.word_swe == word_swe && g.word_eng == word_eng).ToArray();
+            if (glossaries.Length == 0) {
+                Console.WriteLine($"No result \"{word_swe}\" \"{word_eng}\" found.");
+            } else {
+                foreach (SweEngGloss glossary in glossaries) {
+                    Program.Dictionary.Remove(glossary);
                 }
-                Program.Dictionary.RemoveAt(index); // FIXME: Checka om out-of-bounds först.
             }
         }
 
