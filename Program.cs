@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static List<SweEngGloss> dictionary;
+        static List<SweEngGloss> dictionary = new List<SweEngGloss>();
         class SweEngGloss
         {
             public string word_swe, word_eng;
@@ -36,7 +36,7 @@
                     if(argument.Length == 2)
                     {
                         // TODO: Try/catch.
-                        using (StreamReader sr = new StreamReader(argument[1]))
+                        using (StreamReader sr = new StreamReader(@"dict\" + argument[1]))
                         {
                             dictionary = new List<SweEngGloss>(); // Empty it!
                             string line = sr.ReadLine();
@@ -85,6 +85,7 @@
                         string e = Console.ReadLine();
                         dictionary.Add(new SweEngGloss(s, e));
                     }
+                    // TODO: Lägg till fall där argumenten är 2.
                 }
                 else if (command == "delete")
                 {
@@ -100,6 +101,7 @@
                     }
                     else if (argument.Length == 1)
                     {
+                        // TODO: Kolla om listan är tom.
                         Console.WriteLine("Write word in Swedish: ");
                         string s = Console.ReadLine();
                         Console.Write("Write word in English: ");
@@ -111,7 +113,7 @@
                             if (gloss.word_swe == s && gloss.word_eng == e)
                                 index = i;
                         }
-                        dictionary.RemoveAt(index);
+                        dictionary.RemoveAt(index); // FIXME: Checka om out-of-bounds först.
                     }
                 }
                 else if (command == "translate")
