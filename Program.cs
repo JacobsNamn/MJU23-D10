@@ -23,7 +23,7 @@
                     default:
                         Console.WriteLine($"Unknown command: '{command}'");
                         break;
-                } // TODO: Lägg till hjälpkommando.
+                }
             }
             while (command.ToLower() != "quit" );
         }

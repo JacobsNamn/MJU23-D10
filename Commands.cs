@@ -10,14 +10,19 @@ namespace MJU23v_D10_inl_sveng {
         public static void LoadCommand(string[] args) {
             string file = Program.DefaultFile;
             if (args.Length > 1) file = @"dict\" + args[1];
-            using (StreamReader sr = new StreamReader(file)) {
-                Program.Dictionary = new List<SweEngGloss>(); // Empty it!
-                string line;
-                while((line = sr.ReadLine()) != null) {
-                    SweEngGloss gloss = new SweEngGloss(line);
-                    Program.Dictionary.Add(gloss);
+            try {
+                using (StreamReader sr = new StreamReader(file)) {
+                    Program.Dictionary = new List<SweEngGloss>(); // Empty it!
+                    string line;
+                    while ((line = sr.ReadLine()) != null) {
+                        SweEngGloss gloss = new SweEngGloss(line);
+                        Program.Dictionary.Add(gloss);
+                    }
                 }
+            } catch (FileNotFoundException exception) {
+                Console.WriteLine(exception.Message);
             }
+            
         }
 
         public static void ListCommand(string[] args) {
