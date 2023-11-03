@@ -18,21 +18,24 @@
         }
         static void Main(string[] args)
         {
-            string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
+            string defaultFile = @"dict\sweeng.lis";
             Console.WriteLine("Welcome to the dictionary app!");
             do
             {
                 Console.Write("> ");
-                string[] argument = Console.ReadLine().Split();
-                string command = argument[0];
+                string[] argument = Console.ReadLine().Split(); // Nämn om till 'arguments' och ta bort första indexet.
+                string command = argument[0]; // TODO: Tillåt små bokstäver.
                 if (command == "quit")
                 {
                     Console.WriteLine("Goodbye!");
+                    break;
                 }
                 else if (command == "load")
                 {
+                    // TODO: Innehållet av båda if:arna kan kombineras.
                     if(argument.Length == 2)
                     {
+                        // TODO: Try/catch.
                         using (StreamReader sr = new StreamReader(argument[1]))
                         {
                             dictionary = new List<SweEngGloss>(); // Empty it!
@@ -47,6 +50,7 @@
                     }
                     else if(argument.Length == 1)
                     {
+                        // TODO: Try/catch.
                         using (StreamReader sr = new StreamReader(defaultFile))
                         {
                             dictionary = new List<SweEngGloss>(); // Empty it!
@@ -87,7 +91,7 @@
                     if (argument.Length == 3)
                     {
                         int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) {
+                        for (int i = 0; i < dictionary.Count; i++) { // TODO: Förkorta.
                             SweEngGloss gloss = dictionary[i];
                             if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
                                 index = i;
@@ -101,7 +105,7 @@
                         Console.Write("Write word in English: ");
                         string e = Console.ReadLine();
                         int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++)
+                        for (int i = 0; i < dictionary.Count; i++) // TODO: Förkorta.
                         {
                             SweEngGloss gloss = dictionary[i];
                             if (gloss.word_swe == s && gloss.word_eng == e)
@@ -139,6 +143,7 @@
                 {
                     Console.WriteLine($"Unknown command: '{command}'");
                 }
+                // TODO: Lägg till hjälpkommando.
             }
             while (true);
         }
