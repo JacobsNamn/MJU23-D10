@@ -27,16 +27,17 @@ namespace MJU23v_D10_inl_sveng {
         }
 
         public static void NewCommand(string[] args) {
-            if (args.Length == 3) {
+            if(args.Length == 2) { Console.WriteLine("'new' does not take two arguments. Correct usage: new, new [swedish word] [english word]"); return; }
+            if (args.Length > 2) {
                 Program.Dictionary.Add(new SweEngGloss(args[1], args[2]));
-            } else if (args.Length == 1) {
-                Console.WriteLine("Write word in Swedish: ");
-                string s = Console.ReadLine();
-                Console.Write("Write word in English: ");
-                string e = Console.ReadLine();
-                Program.Dictionary.Add(new SweEngGloss(s, e));
+                return;
             }
-            // TODO: Lägg till fall där argsen är 2.
+            string PrintGet(string text) {
+                Console.Write(text);
+                return Console.ReadLine();
+            }
+
+            Program.Dictionary.Add(new SweEngGloss(PrintGet("Write word in Swedish: "), PrintGet("Write word in English: ")));
         }
 
         public static void DeleteCommand(string[] args) {
