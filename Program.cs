@@ -19,6 +19,7 @@
                     case "new": Commands.NewCommand(argument); break;
                     case "delete": Commands.DeleteCommand(argument); break;
                     case "translate": Commands.TranslateCommand(argument); break;
+                    case "help": Commands.HelpCommand(argument); break;
                     default:
                         Console.WriteLine($"Unknown command: '{command}'");
                         break;
